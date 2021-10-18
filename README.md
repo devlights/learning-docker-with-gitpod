@@ -125,4 +125,14 @@ $ docker run -it -v ${PWD}:/app -w container-working-directory --name container-
 $ docker run -it -v ${PWD}:/app -w /app --name mycontainer alpine:latest
 ```
 
+```docker ps``` コマンドと ```docker container list``` は同じ。
+
+```sh
+$ docker ps [-a]
+$ docker container list [-a]
+```
+
+```docker ps``` が古い形式。
+
+
 
