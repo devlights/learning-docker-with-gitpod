@@ -46,3 +46,29 @@ $ docker container start xxxxx
 $ docker container run -d xxxxx                            # -d は「バックグラウンドで実行する」の意味
 $ docker container run --interactive --tty --detach xxxxx  # docker run -it -d xxxxx と同じ
 ```
+
+歴史的経緯から、「start」や「run」のように ```container``` を付けなくても実行できるコマンドがある。
+Docker 1.13にて、コマンドの再編成が実施され、上位コマンドと副コマンドの組み合わせに統一された。
+旧形式の実行方法も現在のところ可能。
+
+##### 旧形式
+
+```sh
+$ docker run xxxxx
+```
+
+##### 新形式
+
+```sh
+$ docker container run xxxxx
+```
+
+ヘルプを見たい場合は以下のようにする。
+
+```sh
+$ docker --help
+$ docker image --help
+$ docker container run --help 
+```
+
+上記は、それぞれ出力されるヘルプの内容が異なる。
