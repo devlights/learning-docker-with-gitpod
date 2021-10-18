@@ -1,4 +1,4 @@
-# learning-docker-with-gitpod
+# try-docker
 This is a repository for learning Docker using Gitpod. (for myself)
 
 # Launch docker daemon in Gitpod
