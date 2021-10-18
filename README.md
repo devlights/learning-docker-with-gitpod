@@ -134,5 +134,20 @@ $ docker container list [-a]
 
 ```docker ps``` が古い形式。
 
+コンテナIDやイメージIDを指定する際は、一意な部分のみを指定できれば良い。
 
+なので、例えば
+
+```sh
+$ docker image list -a
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+httpd        latest    d54056386fbb   5 days ago    138MB
+alpine       latest    14119a10abf4   7 weeks ago   5.59MB
+```
+
+となっていたら
+
+```sh
+$ docker image rm d5
+```
 
