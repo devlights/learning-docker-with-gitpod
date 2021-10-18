@@ -114,3 +114,15 @@ $ docker image pull
 $ docker container create
 $ docker container start
 ```
+
+ホストOSの特定のディレクトリをマウントした状態で起動したい場合は以下のようにする。
+
+```sh
+$ docker run -it -v ${PWD}:/app -w container-working-directory --name container-name image-name
+```
+
+```sh
+$ docker run -it -v ${PWD}:/app -w /app --name mycontainer alpine:latest
+```
+
+
