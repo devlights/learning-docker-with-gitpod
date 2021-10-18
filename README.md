@@ -106,3 +106,11 @@ Server: Docker Engine - Community
   Version:          0.19.0
   GitCommit:        de40ad0
 ```
+
+```docker run``` は、以下のコマンドの動作をひとまとめにしたもの。
+
+```sh
+$ docker image pull
+$ docker container create
+$ docker container start
+```
