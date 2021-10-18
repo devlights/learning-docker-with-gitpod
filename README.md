@@ -11,3 +11,9 @@ $ sudo docker-up
 
 - https://www.gitpod.io/blog/root-docker-and-vscode
 
+
+# WSL2
+
+WSL2が出るまでは、WindowsのHomeエディションではデスクトップ版のDockerが利用できなかった。
+
+2020年春頃のWindowsアップデートにて、WSL2がリリースされたため、現在はHomeエディションでもデスクトップ版Dockerが利用できるようになった。
