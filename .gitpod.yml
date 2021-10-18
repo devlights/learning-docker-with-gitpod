@@ -3,3 +3,4 @@ image:
 vscode:
   extensions:
     - golang.go
+    - ms-azuretools.vscode-docker
