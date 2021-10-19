@@ -235,3 +235,67 @@ $ docker container run --volume ホストのパス:コンテナのパス
 
 マウントしたい場所が複数存在する場合は、```-v (--volume)``` オプションを複数回指定すれば良い。
 
+# コンテナのイメージ化
+
+コンテナを別の環境にコピーしたい場合などに利用するので、サーバエンジニアは必須の知識となる。
+
+イメージの作成方法には２つある。
+
+- すでにあるコンテナを ```docker container commit``` でイメージの書き出しをする方法
+- ```Dockerfile``` でイメージを作る方法
+
+## commit で書き出す方法
+
+```sh
+$ docker container commit commit001 try-docker/commit2:latest
+```
+
+## Dockerfileを使う方法
+
+```sh
+$ docker build -f Dockerfileのパス -t イメージ名:タグ 材料フォルダのパス
+```
+
+通常は以下のようになる。
+
+```sh
+$ docker build -f Dockerfile -t xxx:1.0 .
+```
+
+Dockerfile の中で使う命令は以下のようなものとなる。
+
+- FROM
+  - 元にするイメージを指定する
+- ADD
+  - イメージにファイルやフォルダを追加する
+- COPY
+  - イメージにファイルやフォルダを追加する
+- RUN
+  - イメージをビルドするときにコマンドを実行する
+- CMD
+  - コンテナを起動するときに実行する既存のコマンドを指定する
+- ENTRYPOINT
+  - イメージを実行するときのコマンドを強要する
+- ONBUILD
+  - ビルド完了したときに任意の命令を実行する
+- EXPOSE
+  - 通信を想定するポートをイメージの利用者に伝える
+- VOLUME
+  - 永続データが保存される場所をイメージの利用者に伝える
+- ENV
+  - 環境変数を定義する
+- WORKDIR
+  - RUN, CMD, ENTRYPOINT, ADD, COPYの際の作業ディレクトリを指定する
+- SHELL
+  - ビルド時のシェルを指定する
+- LABEL
+  - 名前やバージョン番号、製作者情報などを設定する
+- USER
+  - RUN, CMD, ENTRYPOINTで指定するコマンドを実行するユーザやグループを設定する
+- ARG
+  - ```docker image build```する際に指定できる引数を宣言する
+- STOPSIGNAL
+  - ```docker container stop``` する際に、コンテナで実行しているプログラムに対して送信するシグナルを変更する
+- HEALTHCHECK
+  - コンテナの死活確認をするヘルスチェックの方法をカスタマイズする
+
