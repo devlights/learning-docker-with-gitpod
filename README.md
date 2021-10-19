@@ -299,3 +299,19 @@ Dockerfile の中で使う命令は以下のようなものとなる。
 - HEALTHCHECK
   - コンテナの死活確認をするヘルスチェックの方法をカスタマイズする
 
+
+# イメージのSaveとLoad（持ち運び）
+
+コンテナはそのままでは移動・コピーが出来ない。一旦イメージにする必要がある。
+
+ただし、イメージもそのままでは利用できないので、Dockerレジストリを経由させるか、 ```docker image save``` コマンドで tar ファイルにする。
+
+ファイルからイメージとして取り込みたい場合は ```docker image load``` コマンドを利用する。
+
+```sh
+$ docker image save -o xxxx.tar イメージ名
+```
+
+```sh
+$ docker image load --input xxxx.tar
+```
