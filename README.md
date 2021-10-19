@@ -151,3 +151,17 @@ alpine       latest    14119a10abf4   7 weeks ago   5.59MB
 $ docker image rm d5
 ```
 
+コンテナを破棄するためには、停止する必要がある。コンテナは動いているものをいきなり削除できない。
+
+```sh
+$ docker container stop xxxxx
+$ docker container rm xxxxx
+```
+
+コンテナはデフォルトでは外から通信アクセスできない状態となっている。アクセスできるように設定するためには、コンテナ作成時に設定する必要がある。
+
+基本的に作成後に変更は出来ない。ポートを指定する場合は ```-p 8888:80``` のように指定する。前がホスト側のポート番号、後ろがコンテナ側のポート番号。
+
+```sh
+$ docker run -d --name apa001 -p 8888:80 httpd:latest
+```
