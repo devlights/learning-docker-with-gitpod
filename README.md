@@ -188,3 +188,20 @@ $ docker network rm xxx
 
 dockerコマンド実行時にネットワークを設置する場合は ```--net``` オプションを指定する。
 
+# コンテナとホスト間でファイルをコピーする
+
+コピーは、コンテナからホスト、ホストからコンテナのどちらも可能。
+
+```docker container cp``` コマンドを使う
+
+## ホストからコンテナ
+
+```sh
+$ docker container cp ../README.md filecp001:/app
+```
+
+## コンテナからホスト
+
+```sh
+$ docker container cp filecp001:/app/README.md ./README2.md
+```
