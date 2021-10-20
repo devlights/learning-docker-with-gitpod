@@ -1,0 +1,26 @@
+version: "3"
+
+# https://qiita.com/kai_kou/items/eaafa3cb15e1496f50ec
+# https://qiita.com/wasanx25/items/d47caf37b79e855af95f
+# https://qiita.com/ryuichi1208/items/8b5adc88a93319cb76a2
+services:
+  httpd001:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache
+    networks:
+      - net1
+    ports:
+      - 8085:80
+    restart: always
+  tomcat001:
+    build:
+      context: .
+      dockerfile: Dockerfile.tomcat
+    networks:
+      - net1
+    restart: always
+    depends_on:
+      - httpd001
+networks:
+  net1:

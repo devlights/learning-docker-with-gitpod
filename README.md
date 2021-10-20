@@ -402,3 +402,81 @@ Dockerでは、レジストリも一つのコンテナとして表現される�
 ```sh
 $ docker container run --name reg001 -d -p 5000:5000 registry 
 ```
+
+# Docker Compose
+
+Dockerでの構築作業に関わるコマンド文の内容を１つのテキストファイル（定義ファイル)(YAML) に書き込んで、一気に実行したり停止・破棄したりするのが ```Docker Compose``` 。
+
+実際にDockerで作業する場合は、dockerコマンドを手打ちで頑張ることはあまりなくて、このDocker Composeを使って作業することが多い。
+
+ファイルの名前は通常 ```docker-compose.yml``` とする。
+
+起動は ```docker-compose -f 定義ファイル up オプション``` とする。
+
+停止は ```docker-compose -f 定義ファイル down オプション``` とする。
+
+定義ファイルには、コンテナやボリュームを「こういう設定で作りたい」という項目を書いておく。
+
+Dockerfileと似ているが、Dockerfileはイメージを作るものなので、ネットワークやボリュームなどは作れない。
+
+Kubernetesとも似ている感じがするが、KubernetesはDockerコンテナを管理するもので、Docker Composeはコンテナなどを作って消すだけで管理機能は持っていない。
+
+Docker Compose は、WindowsとMacの場合はDockerデスクトップ版に付属しているので追加のインストール作業は必要ない。
+
+Linuxの場合は Docker Compose と Python3 のインストールが必要となる。
+
+インストール方法は [Docker Composeのインストール](https://docs.docker.jp/compose/install.html#linux) を参照。
+
+docker-composeのバージョンは以下で確認できる。
+
+```sh
+$ docker-compose version
+docker-compose version 1.29.2, build 5becea4c
+docker-py version: 5.0.0
+CPython version: 3.7.10
+OpenSSL version: OpenSSL 1.1.0l  10 Sep 2019
+```
+
+docker-compose.yml の内容は例えば以下のようになる。
+
+```yaml
+version: "3"
+
+services:
+  httpd001:
+    build:
+      context: .
+      dockerfile: Dockerfile.apache
+    networks:
+      - net1
+    ports:
+      - 8085:80
+    restart: always
+  tomcat001:
+    build:
+      context: .
+      dockerfile: Dockerfile.tomcat
+    networks:
+      - net1
+    restart: always
+    depends_on:
+      - httpd001
+networks:
+  net1:
+
+```
+
+後は、docker-compose.yml が存在するディレクトリに移動して
+
+```sh
+$ docker-compose up -d
+```
+
+で起動して
+
+```sh
+$ docker-compose down
+```
+
+で停止となる。
+
