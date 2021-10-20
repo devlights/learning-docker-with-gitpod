@@ -638,3 +638,106 @@ Failed to connect to bus: Host is down
 ╰───────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
+## Windows上のDockerデスクトップでKubernetesを有効にして試してみた例
+
+#### デプロイメント
+
+ファイル名は ```httpd001dep.yml``` とした
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd001dep
+spec:
+  selector:
+    matchLabels:
+      app: httpd001kube
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: httpd001kube
+    spec:
+      containers:
+        - name: httpd001
+          image: httpd
+          ports:
+            - containerPort: 80
+```
+
+#### サービス
+
+ファイル名は ```httpd001ser.yml``` とした
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpd001ser
+spec:
+  type: NodePort
+  ports:
+  - port: 8099
+    targetPort: 80
+    protocol: TCP
+    nodePort: 30080
+  selector:
+    app: httpd001kube
+```
+
+#### 実行
+
+デプロイメントを適用する
+
+```sh
+$ kubectl apply -f ./httpd001dep.yml
+deployment.apps/httpd001dep created
+```
+
+Podの状況を見てみる。
+
+```sh
+$ kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+httpd001dep-945d9f6dd-6q997   1/1     Running   0          14s
+```
+
+レプリカの数を１にしているので、起動しているコンテナは１つ。
+
+次にレプリカの数を３に変更して再度適用。
+
+```sh
+$ kubectl apply -f ./httpd001dep.yml
+deployment.apps/httpd001dep created
+```
+
+```sh
+$ kubectl get pods
+NAME                          READY   STATUS              RESTARTS   AGE
+httpd001dep-945d9f6dd-2h6dz   0/1     ContainerCreating   0          1s
+httpd001dep-945d9f6dd-6q997   1/1     Running             0          22s
+httpd001dep-945d9f6dd-sz6gg   0/1     ContainerCreating   0          1s
+```
+
+コンテナの数が自動的に調整された。
+
+
+サービスを適用する
+
+```sh
+$ kubectl apply -f ./httpd001ser.yml
+service/httpd001ser created
+```
+
+サービスの状況を確認
+
+```sh
+$ kubectl get services
+NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+httpd001ser   NodePort    10.107.153.247   <none>        8099:30080/TCP   6s
+kubernetes    ClusterIP   10.96.0.1        <none>        443/TCP          65m
+```
+
+ホストOS側の30080番ポートに httpd が接続されているので、ブラウザで localhost:30080 を確認するとApacheの ```It Works!!``` が表示される。
+
