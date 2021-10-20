@@ -1,0 +1,27 @@
+version: "3"
+
+# https://bit.ly/3BZRDLM
+services:
+  mysql001:
+    container_name: mysql001
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      mysqld 
+        --character-set-server=utf8mb4
+        --collation-server=utf8mb4_unicode_ci
+        --default-authentication-plugin=mysql_native_password
+    tty: true
+    networks:
+      - net1
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_DATABASE: db1
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: useruser
+    restart: always
+networks:
+  net1:
