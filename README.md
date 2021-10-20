@@ -338,3 +338,67 @@ $ docker container exec -it container-name /bin/bash
 
 なので、```docker container exec``` を使う。
 
+
+# プライベートレジストリ
+
+普通に ```docker image pull``` や ```docker container run``` を利用すると デフォルト では [DockerHub](https://hub.docker.com/) からイメージをダウンロードする。
+
+イメージの配布場所を ```Dockerレジストリ``` と言う。一般に公開されているか否かに関わらず、配布場所と言えばDockerレジストリと呼ぶ。
+
+[DockerHub](https://hub.docker.com/)は、Dockerレジストリのうち、Docker社の公式が運営しているもの。
+
+当然、プライベートなDockerレジストリも作成することができる。
+
+## レジストリとリポジトリ
+
+レジストリ（登記所）とリポジトリ（倉庫）は似ているが違う。
+
+レジストリは ```イメージの配布場所``` 。一方、リポジトリは、レジストリの中をさらに区切った単位。
+
+一つのレジストリの中にNのリポジトリが存在する。
+
+## アップロード方法
+
+イメージのアップロード先が [DockerHub](https://hub.docker.com/) であっても、プライベートなDockerレジストリであってもイメージにはタグをつける必要がある。
+
+タグ名は以下のような命名となる。
+
+```レジストリの場所/リポジトリ名:バージョン番号```
+
+例として以下のようになる
+
+#### localhost:5000 で公開されているレジストリで、priregというリポジトリ名で、バージョン番号が1.0
+
+```localhost:5000/prireg:1.0```
+
+(*) [DockerHub](https://hub.docker.com/) の場合は ```DockerHubのID/リポジトリ名:バージョン番号``` となる
+
+イメージにタグを付与するには ```docker image tag``` コマンドを使う
+
+```sh
+$ docker image tag 元のイメージ名 レジストリの場所/リポジトリ名:バージョン番号
+```
+
+```sh
+$ docker image tag try-docker/prireg:latest localhost:5000/prireg:1.0
+```
+
+イメージをアップするには ```docker image push``` コマンドを使う
+
+```sh
+$ docker image push レジストリの場所/リポジトリ名:バージョン番号
+```
+
+```sh
+$ docker image push localhost:5000/prireg:1.0
+```
+
+## プライベートレジストリを作る
+
+Dockerでは、レジストリも一つのコンテナとして表現される。
+
+レジストリ用のイメージが提供されているので、以下のようにコンテナを起動すると、そのホストの中にプライベートレジストリが起動する。
+
+```sh
+$ docker container run --name reg001 -d -p 5000:5000 registry 
+```
