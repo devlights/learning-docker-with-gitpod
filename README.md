@@ -315,3 +315,26 @@ $ docker image save -o xxxx.tar イメージ名
 ```sh
 $ docker image load --input xxxx.tar
 ```
+
+# コンテナの改造
+
+## シェルの起動
+
+コンテナは、何も指定せずに起動すると、当然シェルも動いていない状態となる。
+
+なので、bashなどのシェルを起動して命令を受け取ってもらうようにする必要がある。
+
+起動中のコンテナに対して、シェル起動して中に入るには ```docker container exec``` を使う。
+
+```sh
+$ docker container exec -it container-name /bin/bash
+```
+
+ようにする。
+
+```docker container run``` に対して引数でシェルを指定することもできるが、その場合コンテナに入っているソフトウェアを動かす代わりに
+シェルを動かすことになる。なので、コンテナは作られているものの、ソフトウェアがスタートしていない状態となる。シェルでの操作が終わった後に
+改めて ```docker container start``` でスタートさせる必要が出てくる。
+
+なので、```docker container exec``` を使う。
+
