@@ -546,3 +546,95 @@ Kubernetesは、「その状態を維持」する。
   - Podのデプロイを管理
 
 同一構成のPodの塊を レプリカ (Replica) という。
+
+
+## 最低限知っておくべき事実
+
+Kubernetesを「ちゃんと」使うには、しっかりとして大量の知識とネットワークに関する深い知識などが必要になる。
+
+さらに、Kubernetesは本来大規模なシステムが前提であり、マスターノードとワーカーノードは別々の物理的マシンにされているなど、簡単に手が出せるものではない。
+
+ClusterIPの設定やその前に置くロードバランサなどはインフラ屋さんに頼まないといけない。
+
+なので、現実的に大企業に属しているなどじゃないと、イチから構築などはまずチャンスがない。
+
+ほとんどの人はクラウドを利用してKubernetesに触れることになる。
+
+単に触ってみる程度であれば、Dockerデスクトップ版でお試しKubernetesがインストールできるので、それで触ってみるのがいいかもしれない。
+
+Linuxの場合はMinikubeをインストールして操作してみるという感じになる。
+
+WSL2環境のDebian/sidに Minikube をインストールしてみた感じ、以下のようになった。
+
+```sh
+$ cat /etc/os-release
+cat /etc/os-release
+PRETTY_NAME="Debian GNU/Linux bookworm/sid"
+NAME="Debian GNU/Linux"
+ID=debian
+HOME_URL="https://www.debian.org/"
+SUPPORT_URL="https://www.debian.org/support"
+BUG_REPORT_URL="https://bugs.debian.org/"
+
+
+
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo dpkg -i minikube_latest_amd64.deb
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 22.2M  100 22.2M    0     0  21.9M      0  0:00:01  0:00:01 --:--:-- 21.9M
+Selecting previously unselected package minikube.
+(Reading database ... 39822 files and directories currently installed.)
+Preparing to unpack minikube_latest_amd64.deb ...
+Unpacking minikube (1.23.2-0) ...
+Setting up minikube (1.23.2-0) ...
+
+
+$ sudo dpkg -i minikube_latest_amd64.deb
+(Reading database ... 39823 files and directories currently installed.)
+Preparing to unpack minikube_latest_amd64.deb ...
+Unpacking minikube (1.23.2-0) over (1.23.2-0) ...
+Setting up minikube (1.23.2-0) ...
+
+
+$ minikube start --vm-driver=none
+😄  minikube v1.23.2 on Debian bookworm/sid
+✨  Using the none driver based on user configuration
+
+🤷  Exiting due to PROVIDER_NONE_NOT_FOUND: The 'none' provider was not found: exec: "iptables": executable file not found in $PATH
+💡  Suggestion: iptables must be installed
+📘  Documentation: https://minikube.sigs.k8s.io/docs/reference/drivers/none/
+```
+
+ちなみに Gitpod 上ではエラーが出て Minikube が動作しなかった。
+
+```sh
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+$ sudo dpkg -i minikube_latest_amd64.deb
+$ sudo apt update && sudo apt install conntrack
+
+$ minikube start --vm-driver=none
+😄  minikube v1.23.2 on Ubuntu 20.04 (amd64)
+✨  Using the none driver based on user configuration
+👍  Starting control plane node minikube in cluster minikube
+🤹  Running on localhost (CPUs=16, Memory=64319MB, Disk=595282MB) ...
+ℹ️  OS release is Ubuntu 20.04.2 LTS
+
+❌  Exiting due to RUNTIME_ENABLE: sudo systemctl daemon-reload: exit status 1
+stdout:
+
+stderr:
+System has not been booted with systemd as init system (PID 1). Can't operate.
+Failed to connect to bus: Host is down
+
+
+╭───────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                           │
+│    😿  If the above advice does not help, please let us know:                             │
+│    👉  https://github.com/kubernetes/minikube/issues/new/choose                           │
+│                                                                                           │
+│    Please run `minikube logs --file=logs.txt` and attach logs.txt to the GitHub issue.    │
+│                                                                                           │
+╰───────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
