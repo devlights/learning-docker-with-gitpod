@@ -5,6 +5,7 @@ version: "3"
 # https://qiita.com/ryuichi1208/items/8b5adc88a93319cb76a2
 services:
   httpd001:
+    container_name: httpd001
     build:
       context: .
       dockerfile: Dockerfile.apache
@@ -14,6 +15,7 @@ services:
       - 8085:80
     restart: always
   tomcat001:
+    container_name: tomcat001
     build:
       context: .
       dockerfile: Dockerfile.tomcat

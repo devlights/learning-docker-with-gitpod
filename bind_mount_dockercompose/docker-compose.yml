@@ -1,0 +1,14 @@
+version: "3"
+
+# https://qiita.com/sekitaka_1214/items/2af73d5dc56c6af8a167
+# https://qiita.com/ragnar1904/items/d0e2709c2c7e827d09e2
+services:
+  mount001:
+    container_name: mount001
+    build:
+      context: .
+      dockerfile: Dockerfile
+    tty: true
+    volumes:
+      - $PWD/..:/app
+      - ${PWD}:/app2
