@@ -6,6 +6,9 @@ RUN apt-get update -q \
 
 RUN apt-get install -y openssh-server
 
+#
+# https://qiita.com/y-vectorfield/items/587d3f3a6eec8f251f3c
+#
 RUN mkdir /var/run/sshd
 RUN echo 'root:rootroot' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -19,6 +22,3 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
-
-RUN mkdir -p /demo
-WORKDIR /demo

@@ -1,5 +1,15 @@
 # https://qiita.com/maki_azuki/items/b0679959a61e00966c75
+# https://cloudpack.media/32424
+# https://stackoverflow.com/questions/32429259/ansible-fails-with-bin-sh-1-usr-bin-python-not-found
 - hosts: demo
+  gather_facts: yes
+#
+# もし、相手先にPythonが入っていない場合は以下のようにする
+#
+#  gather_facts: no
+#  pre_tasks:
+#    - name: 'install python3'
+#      raw: apt install -y python3
   tasks:
     - name: apt update
       apt:
