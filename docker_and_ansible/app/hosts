@@ -1,0 +1,8 @@
+[demo]
+deb001
+
+[all:vars]
+ansible_ssh_port=22
+ansible_ssh_user=root
+ansible_ssh_pass=rootroot
+ansible_sudo_pass=rootroot

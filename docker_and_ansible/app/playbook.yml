@@ -1,0 +1,10 @@
+# https://qiita.com/maki_azuki/items/b0679959a61e00966c75
+- hosts: demo
+  tasks:
+    - name: apt update
+      apt:
+        update_cache: yes
+    - name: apt install sl
+      apt:
+        name:
+          - sl

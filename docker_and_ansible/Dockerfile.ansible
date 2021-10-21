@@ -1,0 +1,12 @@
+FROM debian:latest
+
+RUN mkdir -p /app
+
+RUN apt-get update -q \
+    && apt-get install -yq iputils-ping net-tools dnsutils procps gnupg2 nano vim sshpass \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
+    && echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main' >> /etc/apt/sources.list \
+    && apt-get install -y ansible \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
