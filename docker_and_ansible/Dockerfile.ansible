@@ -1,6 +1,6 @@
 FROM debian:latest
 
-RUN mkdir -p /app
+RUN mkdir -p /playbooks
 
 RUN apt-get update -q \
     && apt-get install -yq iputils-ping net-tools dnsutils procps gnupg2 nano vim sshpass \
@@ -9,4 +9,8 @@ RUN apt-get update -q \
     && apt-get install -y ansible \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /playbooks
+
+# https://qiita.com/ken992/items/872a90736e6af26ef4ab
+# https://eel3.hatenablog.com/entry/2020/09/12/110814
+CMD [ "bash", "./startup.sh" ]

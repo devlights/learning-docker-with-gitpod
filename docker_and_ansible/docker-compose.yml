@@ -9,12 +9,12 @@ services:
     networks:
       - net001
     volumes:
-      - ./app:/app
+      - ./playbooks:/playbooks
     restart: always
     depends_on:
-      - deb001
-  deb001:
-    container_name: deb001
+      - demo001
+  demo001:
+    container_name: demo001
     build:
       context: .
       dockerfile: Dockerfile.demo
