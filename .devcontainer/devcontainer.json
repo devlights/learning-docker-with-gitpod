@@ -24,8 +24,7 @@
 		"go.goroot": "/usr/local/go"
 	},
 	"extensions": [
-		"golang.Go",
-		"ms-azuretools.vscode-docker"
+		"golang.Go"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
