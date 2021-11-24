@@ -1,4 +1,6 @@
-ARG = go version
+UID = $(shell id -u)
+GID = ${UID}
+ARG = go build -o sample-app
 
 default:
 
@@ -17,9 +19,12 @@ run-nonroot:
 		--interactive \
 		--tty \
 		--rm \
-		--user 1000:1000 \
+		--user ${UID}:${GID} \
 		--mount type=bind,src=${PWD},dst=/workspace \
 		--workdir /workspace \
 		--env GOCACHE=/workspace/.cache \
 		mcr.microsoft.com/vscode/devcontainers/go:1.17 \
 		${ARG}
+
+clean:
+	rm -f sample-app
