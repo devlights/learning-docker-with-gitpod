@@ -13,6 +13,7 @@ run-root:
 		--workdir /workspace \
 		mcr.microsoft.com/vscode/devcontainers/go:1.17 \
 		${ARG}
+	ls -l
 
 run-nonroot:
 	docker container run \
@@ -25,6 +26,7 @@ run-nonroot:
 		--env GOCACHE=/workspace/.cache \
 		mcr.microsoft.com/vscode/devcontainers/go:1.17 \
 		${ARG}
+	ls -l
 
 clean:
-	rm -f sample-app
+	sudo rm -f sample-app
