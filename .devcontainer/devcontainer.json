@@ -35,6 +35,6 @@
 
 	"remoteUser": "vscode",
 	"features": {
-		"docker-from-docker": "20.10"
+		"docker-in-docker": "20.10"
 	}
 }
