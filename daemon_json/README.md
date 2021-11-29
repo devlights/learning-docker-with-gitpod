@@ -112,7 +112,138 @@ $ sudo docker info 2> /dev/null | tail -5
 
 ちゃんと読み込まれている。
 
+### Windowsの場合は？
+
+Windowsの場合、```daemon.json``` は、```C:\ProgramData\docker\config\daemon.json``` に作成することになる。中身は同じ。
+
+### daemon.json に設定できるキーって何があるの？
+
+以下に一覧があります。
+
+[https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file:embed:cite]
+
+2021-11-29時点だと、以下みたい。
+
+```json
+{
+  "allow-nondistributable-artifacts": [],
+  "api-cors-header": "",
+  "authorization-plugins": [],
+  "bip": "",
+  "bridge": "",
+  "cgroup-parent": "",
+  "cluster-advertise": "",
+  "cluster-store": "",
+  "cluster-store-opts": {},
+  "containerd": "/run/containerd/containerd.sock",
+  "containerd-namespace": "docker",
+  "containerd-plugin-namespace": "docker-plugins",
+  "data-root": "",
+  "debug": true,
+  "default-address-pools": [
+    {
+      "base": "172.30.0.0/16",
+      "size": 24
+    },
+    {
+      "base": "172.31.0.0/16",
+      "size": 24
+    }
+  ],
+  "default-cgroupns-mode": "private",
+  "default-gateway": "",
+  "default-gateway-v6": "",
+  "default-runtime": "runc",
+  "default-shm-size": "64M",
+  "default-ulimits": {
+    "nofile": {
+      "Hard": 64000,
+      "Name": "nofile",
+      "Soft": 64000
+    }
+  },
+  "dns": [],
+  "dns-opts": [],
+  "dns-search": [],
+  "exec-opts": [],
+  "exec-root": "",
+  "experimental": false,
+  "features": {},
+  "fixed-cidr": "",
+  "fixed-cidr-v6": "",
+  "group": "",
+  "hosts": [],
+  "icc": false,
+  "init": false,
+  "init-path": "/usr/libexec/docker-init",
+  "insecure-registries": [],
+  "ip": "0.0.0.0",
+  "ip-forward": false,
+  "ip-masq": false,
+  "iptables": false,
+  "ip6tables": false,
+  "ipv6": false,
+  "labels": [],
+  "live-restore": true,
+  "log-driver": "json-file",
+  "log-level": "",
+  "log-opts": {
+    "cache-disabled": "false",
+    "cache-max-file": "5",
+    "cache-max-size": "20m",
+    "cache-compress": "true",
+    "env": "os,customer",
+    "labels": "somelabel",
+    "max-file": "5",
+    "max-size": "10m"
+  },
+  "max-concurrent-downloads": 3,
+  "max-concurrent-uploads": 5,
+  "max-download-attempts": 5,
+  "mtu": 0,
+  "no-new-privileges": false,
+  "node-generic-resources": [
+    "NVIDIA-GPU=UUID1",
+    "NVIDIA-GPU=UUID2"
+  ],
+  "oom-score-adjust": -500,
+  "pidfile": "",
+  "raw-logs": false,
+  "registry-mirrors": [],
+  "runtimes": {
+    "cc-runtime": {
+      "path": "/usr/bin/cc-runtime"
+    },
+    "custom": {
+      "path": "/usr/local/bin/my-runc-replacement",
+      "runtimeArgs": [
+        "--debug"
+      ]
+    }
+  },
+  "seccomp-profile": "",
+  "selinux-enabled": false,
+  "shutdown-timeout": 15,
+  "storage-driver": "",
+  "storage-opts": [],
+  "swarm-default-advertise-addr": "",
+  "tls": true,
+  "tlscacert": "",
+  "tlscert": "",
+  "tlskey": "",
+  "tlsverify": true,
+  "userland-proxy": false,
+  "userland-proxy-path": "/usr/libexec/docker-proxy",
+  "userns-remap": ""
+}
+```
+
 # 参考情報
 
+- [Where's docker's daemon.json? (missing)](https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing)
 - [Custom Docker daemon options](https://docs.docker.com/config/daemon/systemd/#custom-docker-daemon-options)
 - [Configure the Docker daemon](https://docs.docker.com/config/daemon/#configure-the-docker-daemon)
+- [Test an insecure registry](https://docs.docker.com/registry/insecure/)
+- [Docker デーモンの設定](https://docs.docker.jp/config/daemon/daemon.html#configure-the-docker-daemon)
+- [Daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
+- [daemon.jsonでDockerエンジンのオプション指定 (/etc/docker, insecure-registries)](https://devlights.hatenablog.com/entry/2021/11/30/010150)
