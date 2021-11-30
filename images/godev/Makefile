@@ -1,0 +1,5 @@
+build:
+	docker buildx build -t godev -f Dockerfile ${PWD}
+
+run:
+	docker container run -it --rm godev
