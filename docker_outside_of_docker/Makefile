@@ -3,6 +3,7 @@ default:
 use-alpine-image:
 	docker image build -t dfromd/alpine -f Dockerfile.alpine ${PWD}
 	docker container run \
+		--init \
 		--interactive \
 		--tty \
 		--rm \
@@ -13,6 +14,7 @@ use-alpine-image:
 use-debian-image:
 	docker image build -t dfromd/debian -f Dockerfile.debian ${PWD}
 	docker container run \
+		--init \
 		--interactive \
 		--tty \
 		--rm \
