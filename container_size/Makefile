@@ -12,7 +12,9 @@ run: build
 		--tty \
 		--rm \
 		--name myapp1 \
+		--publish 8888:8888 \
 		myapp
+	curl http://localhost:8888/
 	docker container list --size
 	docker container stop myapp1
 	docker image rm myapp
