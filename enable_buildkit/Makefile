@@ -3,4 +3,4 @@ use_env:
 	docker container run --rm use_env
 
 use_buildx:
-	docker image buildx build -t use_buildx -f Dockerfile ${PWD}
+	docker buildx build -t use_buildx -f Dockerfile ${PWD}
