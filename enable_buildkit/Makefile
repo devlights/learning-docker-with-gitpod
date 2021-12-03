@@ -1,3 +1,6 @@
+no_buildkit:
+	DOCKER_BUILDKIT=0 docker image build -t no_builtkit -f Dockerfile ${PWD}
+
 use_env:
 	DOCKER_BUILDKIT=1 docker image build -t use_env -f Dockerfile ${PWD}
 	docker container run --rm use_env
