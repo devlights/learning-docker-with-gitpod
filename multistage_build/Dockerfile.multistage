@@ -1,0 +1,24 @@
+# syntax=docker/dockerfile:1-labs
+# -----------------------------------------------------
+# base image
+# -----------------------------------------------------
+FROM golang:1.17-alpine as base
+
+WORKDIR /workspace
+ENV CGO_ENABLED=0
+
+COPY go.* .
+RUN go mod download
+
+COPY . .
+RUN go build -o app main.go
+
+# -----------------------------------------------------
+# runner image
+# -----------------------------------------------------
+FROM gcr.io/distroless/static:latest
+
+WORKDIR /app
+COPY --from=base /workspace/app app
+
+CMD [ "/app/app" ]

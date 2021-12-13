@@ -1,0 +1,14 @@
+# syntax=docker/dockerfile:1-labs
+FROM golang:1.17-alpine
+
+WORKDIR /workspace
+
+ENV CGO_ENABLED=0
+
+COPY go.* .
+RUN go mod download
+
+COPY . .
+RUN go build -o app main.go
+
+CMD [ "/workspace/app" ]
