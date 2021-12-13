@@ -1,5 +1,9 @@
 image:
   file: .gitpod.Dockerfile
+tasks:
+  - name: install go libraries
+    init: |+
+      go install honnef.co/go/tools/cmd/staticcheck@latest
 vscode:
   extensions:
     - golang.go
