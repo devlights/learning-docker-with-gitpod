@@ -3,7 +3,9 @@ image:
 tasks:
   - name: install go libraries
     init: |+
+      go install golang.org/x/tools/cmd/goimports@latest
       go install honnef.co/go/tools/cmd/staticcheck@latest
+      go install github.com/go-delve/delve/cmd/dlv@latest
 vscode:
   extensions:
     - golang.go
