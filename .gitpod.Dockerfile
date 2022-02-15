@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full
+FROM gitpod/workspace-go:latest
 
 USER gitpod
 
@@ -10,6 +10,3 @@ USER gitpod
 #     sudo rm -rf /var/lib/apt/lists/*
 #
 # More information: https://www.gitpod.io/docs/config-docker/
-RUN sudo apt-get -q update && \
-    sudo apt-get install -yq tree bc nkf && \
-    sudo rm -rf /var/lib/apt/lists/*
